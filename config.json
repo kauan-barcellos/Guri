@@ -1,0 +1,39 @@
+{
+  "plugins": {
+    "google-antigravity-sdk": {
+      "enabled": true
+    },
+    "prompt_master": {
+      "enabled": true
+    },
+    "python_refactoring": {
+      "enabled": true
+    },
+    "science": {
+      "enabled": true,
+      "installedFrom": {
+        "id": "antigravity-plugins-official/plugin/science",
+        "marketplace": "antigravity-plugins-official",
+        "version": "1.4.0"
+      }
+    },
+    "swarm": {
+      "enabled": true
+    }
+  },
+  "userSettings": {
+    "autoExecutionPolicy": "CASCADE_COMMANDS_AUTO_EXECUTION_EAGER",
+    "browserJsExecutionPolicy": "BROWSER_JS_EXECUTION_POLICY_DISABLED",
+    "globalPermissionGrants": {
+      "allow": [
+        "execute_url(localhost)",
+        "read_url(raw.githubusercontent.com)",
+        "execute_url(forums.raspberrypi.com)"
+      ]
+    },
+    "permissionGrantsV2Migrated": true,
+    "remoteControlHostname": "si001342-swift-axis",
+    "sandboxEnabledAtV2Migration": false,
+    "themeMode": "THEME_MODE_DARK"
+  }
+}

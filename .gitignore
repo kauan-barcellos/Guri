@@ -1,0 +1,11 @@
+﻿# Arquivos de log e cache temporario
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+# Arquivos de sessoes locais
+projects/
+.migrated
+.DS_Store
+Thumbs.db
