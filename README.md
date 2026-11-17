@@ -33,7 +33,8 @@ Cada habilidade é uma pasta independente com manual (`SKILL.md`) e scripts pron
 * **`electrical-panel-analyzer/`**: Leitura e interpretação de diagramas e quadros elétricos.
 * **`advogado-especialista/` & `lgpd-*/`**: Conjunto robusto de conformidade com a LGPD e suporte jurídico.
 * **`matplotlib/` & `geopandas/`**: Visualização científica de dados em alta resolução e análise geoespacial.
-* **`humanizer/`**: Ajuste fino de textos para comunicação natural e autêntica.
+* **`seu-tom-de-voz/`**: Tom de voz autêntico de liderança e regras anti-IA permanentes para e-mails, relatórios, posts e artigos.
+* **`humanizer/`**: Refinamento de texto natural.
 
 ---
 
