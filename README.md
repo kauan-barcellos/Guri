@@ -58,29 +58,27 @@ Em qualquer projeto de circuito impresso, o Guri segue três critérios prático
 
 ---
 
-## Como usar em outra máquina
+## Como usar o Guri
 
-### 1. Clonar na pasta de configuração
-No PowerShell de um computador novo:
+### 1. Em um computador novo (Primeira vez)
+No PowerShell de uma nova máquina, clone o repositório e rode o instalador automático:
 ```powershell
 git clone https://github.com/kauan-barcellos/Guri.git $HOME\.gemini\config
+& "$HOME\.gemini\config\skills\guri-core\scripts\setup.ps1"
 ```
+Esse comando configura os atalhos `guri` e `guri-salvar` no seu perfil do PowerShell.
 
-### 2. Ativar o comando guri no terminal
-Abra o arquivo de perfil do PowerShell (`notepad $PROFILE`) e adicione:
+### 2. No dia a dia (Iniciar sessão)
+Vá até a pasta do seu projeto e digite:
 ```powershell
-function guri {
-    python "$HOME\.gemini\config\skills\guri-core\scripts\banner.py"
-    agy $args
-}
+guri
+```
+O comando busca novidades no GitHub automaticamente (`git pull`), exibe o banner oficial e abre o assistente. Se quiser reconectar a uma sessão específica:
+```powershell
+guri -c <id-da-sessao>
 ```
 
-### 3. Rotina de sincronização
-* Ao começar o trabalho no dia:
-  ```powershell
-  cd $HOME\.gemini\config; git pull origin main
-  ```
-* Ao terminar a sessão:
-  ```powershell
-  cd $HOME\.gemini\config; git add -A; git commit -m "Atualização de habilidades"; git push origin main
-  ```
+### 3. Ao terminar o trabalho (Encerrar sessão)
+Você pode escolher a forma mais prática:
+* **Na conversa com o Guri:** Diga apenas *"vamos encerrar por hoje, pode salvar e sincronizar"*. O assistente revisa as alterações, faz o commit e envia tudo para o GitHub.
+* **No terminal:** Digite `guri-salvar` para enviar qualquer atualização diretamente.
