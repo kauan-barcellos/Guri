@@ -1,16 +1,8 @@
-﻿<div align="center">
+﻿<p align="center">
+  <img src="assets/banner.svg" alt="GURI - A mente que pensa" width="100%">
+</p>
 
-```text
-   ______  __  ______  ____
-  / ____/ / / / / __ \/  _/   >> GURI • A mente que pensa
- / / __  / / / / /_/ // /     >> "Vem devagarinho. Qual a boa de hoje?"
-/ /_/ / / /_/ / _, _// /      -------------------------------------------------
-\____/  \____/_/ |_/___/      [+] Cérebro: Sincronizado via GitHub (Guri)
-                              [+] Status:  É só querer!
-════════════════════════════════════════════════════════════════════════════════════
-```
-
-# 🤖 GURI — A mente que pensa
+<div align="center">
 
 [![Status](https://img.shields.io/badge/Status-%C3%89%20s%C3%B3%20querer!-00C853?style=for-the-badge)](https://github.com/kauan-barcellos/Guri)
 [![Language](https://img.shields.io/badge/Idioma-pt--BR-blue?style=for-the-badge)](https://github.com/kauan-barcellos/Guri)
@@ -88,6 +80,8 @@ O conhecimento do Guri é estritamente modular. Ele utiliza o mecanismo de *Prog
 
 ```text
 Guri/
+├── assets/
+│   └── banner.svg                 # Banner oficial do Guri renderizado em alta definição
 ├── README.md                      # Apresentação oficial e guia do cérebro
 ├── AGENTS.md                      # Instruções de comportamento e operação autônoma
 ├── .gitignore                     # Proteção contra logs, caches e arquivos de sessão
