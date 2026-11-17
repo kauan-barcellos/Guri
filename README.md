@@ -28,7 +28,10 @@ O cérebro do Guri é 100% modular, direto ao ponto e sem complicação. Ele é 
 ### 2. ⚡ `skills/` (As especialidades do Guri)
 Cada habilidade é uma pasta independente com manual (`SKILL.md`) e scripts prontos para rodar:
 * **`guri-core/`**: O coração do Guri — o gerador de banner estiloso em arte ASCII com frases descontraídas.
-* **`leitor-catman/`**: Leitura de arquivos `.BIN` e `.TST` do HBM catman/QuantumX (amostragem a 19.2 kHz), decimação sem ruído (*anti-aliasing*) e cálculo de ensaios de chave de impacto (picos, média de impactos, cadência IPM e rebote).
+* **`kicad10-hardware-design/`** & **`kicad10-pcb-designer/`**: Desenvolvimento de hardware no KiCad 10.0 + JLCPCB, regras de módulos COTS, segregação de ruído e automação MCP.
+* **`bom-lifecycle-auditor/`** & **`embedded-pinout-planner/`**: Auditoria de componentes JLCPCB e pinagem de MCUs.
+* **`hardware-adr/`**: Registros de Decisão de Arquitetura de Hardware (ADRs).
+* **`leitor-catman/`**: Leitura de arquivos .BIN e .TST do HBM catman/QuantumX (amostragem a 19.2 kHz), decimação sem ruído (anti-aliasing) e ensaios de impacto.
 * **`labjack-lua/`**: Scripts Lua embarcados de alto desempenho para DAQ LabJack T7-PRO.
 * **`electrical-panel-analyzer/`**: Leitura e interpretação de diagramas e quadros elétricos.
 * **`advogado-especialista/` & `lgpd-*/`**: Conjunto robusto de conformidade com a LGPD e suporte jurídico.
