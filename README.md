@@ -1,5 +1,5 @@
 ﻿<p align="center">
-  <img src="assets/banner.svg" alt="GURI - A mente que pensa" width="100%">
+  <img src="assets/banner.png" alt="GURI - A mente que pensa" width="100%">
 </p>
 
 <div align="center">
@@ -10,114 +10,64 @@
 [![KiCad](https://img.shields.io/badge/CAD-KiCad%2010.0-314CB6?style=for-the-badge&logo=kicad&logoColor=white)](https://kicad.org)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-<p align="center">
-  <b>O Segundo Cérebro portátil, versátil e descontraído para engenharia, dados, hardware e vida real.</b><br>
-  <i>"Vem devagarinho. Qual a boa de hoje?"</i>
-</p>
-
 </div>
 
----
+# Guri
 
-## 💡 O que é o Guri?
-
-O **Guri** não é um assistente de IA comum cheio de respostas genéricas e bajulação. Ele é um parceiro de trabalho técnico, prático e polivalente, projetado para viver dentro do ecossistema **Google Antigravity** e ser transportado para qualquer computador (workstation de bancada, notebook de campo ou servidor) através deste repositório Git.
-
-Ele pensa como engenheiro, resolve problemas com dados concretos e fala em português direto e autêntico — sem clichês corporativos, sem enrolação e sem travessões desnecessários.
+Repositório central de configurações, habilidades e regras de trabalho do assistente Guri. Este diretório funciona como a memória persistente do agente no Antigravity CLI e pode ser clonado em qualquer máquina para manter o mesmo padrão de trabalho.
 
 ---
 
-## ⚡ Arsenal de Habilidades (O que o Guri sabe fazer)
+## O que está configurado aqui
 
-O conhecimento do Guri é estritamente modular. Ele utiliza o mecanismo de *Progressive Disclosure*: carrega sob demanda apenas as ferramentas necessárias para a tarefa atual, economizando contexto e respondendo na velocidade da luz.
+O conteúdo é organizado em três pastas principais:
 
-### 🛠️ 1. Engenharia de Hardware & PCBs (KiCad 10 + JLCPCB)
-* **`kicad10-hardware-design` & `kicad10-pcb-designer`**: Fluxo profissional de criação de placas no KiCad 10 via MCP Server (batching de conexões, posicionamento automático, autoroteamento FreeRouting).
-* **`bom-lifecycle-auditor`**: Consulta offline a uma base SQLite local com **513.000 componentes da JLCPCB**, priorizando peças *Basic* para eliminar taxas extras de montagem ($3/linha).
-* **`embedded-pinout-planner`**: Planejamento e validação de pinagens de MCUs (STM32, ESP32, RP2040) prevenindo conflitos de periféricos e *strapping pins*.
-* **`hardware-adr`**: Gestão e documentação de Registros de Decisão de Arquitetura de Hardware (ADRs).
-* **`kicad-regime-classifier`**: Classificação de regimes elétricos e regras IPC-2152 (sinais rápidos, 3W e trilhas de potência).
+### 1. Regras permanentes (`rules/`)
+Diretrizes ativas em todas as conversas e projetos:
+* **`diretrizes-gerais.md`**: Linguagem direta em português do Brasil, sem termos rebuscados. Gráficos com 300 DPI, unidades físicas nos eixos e escalas comparáveis.
+* **`seu-tom-de-voz.md`**: Regras anti-IA para textos e conversas (sem travessões artificiais, sem oposições correlativas, sem clichês corporativos e com autoridade baseada em fatos).
+* **`rotina-sync-encerramento.md`**: Rotina de verificação e envio automático das alterações para o GitHub antes de fechar a sessão.
 
-> [!IMPORTANT]
-> **As 3 Regras de Ouro de Hardware do Guri:**
-> 1. **Módulos COTS:** Sempre priorizar o uso de módulos comerciais prontos (conversores DC-DC, transceivers RS485, etc.) em placas-mãe (*carrier boards*). Não desenhar circuitos discretos complexos sem necessidade.
-> 2. **Ergonomia e Montagem:** Bornes voltados para fora, 4 furos M3 nos cantos, serigrafia nítida e Test Points de medição acessíveis.
-> 3. **Segregação Física:** Isolar espacialmente o circuito de potência/relés dos sinais lógicos do microcontrolador e barramentos de comunicação.
-
----
-
-### 📡 2. Aquisição de Dados (DAQ) & Instrumentação
-* **`leitor-catman`**: Leitor de arquivos de aquisição de alta frequência (**19.200 Hz**) do software **HBM catmanEasy / catmanAP** (`.BIN` e `.TST`) via módulos QuantumX.
-* **Filtro Anti-Aliasing**: Algoritmos de decimação por média de bloco para reduzir taxas sem perder os picos reais de choque e impacto.
-* **Dinâmica de Ferramentas de Impacto**: Cálculo automatizado de torque máximo ($T_{max}$), média sustentada de impactos, cadência de golpes (**IPM**) e oscilação de rebote elástico.
-* **`labjack-lua`**: Desenvolvimento de scripts embarcados em Lua de alta velocidade para DAQs **LabJack T7-PRO** (gestão de RAM < 25KB, precisão float 32-bit e timers de hardware).
-* **`electrical-panel-analyzer`**: Análise e extração sistemática de diagramas e quadros elétricos a partir de imagens e PDFs.
-
----
-
-### 🗣️ 3. Tom de Voz Autêntico & Regras Anti-IA (Permanente)
-* **`seu-tom-de-voz`**: Método editorial completo para comunicação autêntica de liderança.
-* **Diretriz Universal no Chat:** O Guri nunca usa respostas artificiais de IA ("Certamente!", "Com certeza!", "Com muito prazer!"). Ele entra direto na resolução.
-* **Regras Anti-IA Universais:** Banimento de travessões desnecessários, proibições de oposição correlativa (*"não é X, é Y"*), eliminação de clichês vazios (*"game-changer", "robusto", "sinergia", "alavancar"*) e autoridade baseada em fatos e números reais.
-* **`humanizer`**: Refinamento de textos corporativos para fluidez natural.
+### 2. Habilidades de trabalho (`skills/`)
+Módulos carregados sob demanda pelo agente:
+* **Hardware e PCB (KiCad 10):**
+  * `kicad10-hardware-design` e `kicad10-pcb-designer`: Criação de placas, roteamento e geração de arquivos para fabricação na JLCPCB.
+  * `bom-lifecycle-auditor`: Consulta ao banco de 513 mil componentes da JLCPCB para escolher peças de linha básica e evitar custos extras de montagem.
+  * `embedded-pinout-planner`: Planejamento de pinagem para microcontroladores (STM32, ESP32, RP2040).
+  * `hardware-adr`: Modelos e registros de decisões de arquitetura de circuito.
+* **Aquisição de Dados e Testes (DAQ):**
+  * `leitor-catman`: Leitura de arquivos .BIN e .TST do software HBM catmanAP (amostragens a 19.200 Hz), decimação com média de bloco e cálculo de torque, impactos por minuto (IPM) e rebote.
+  * `labjack-lua`: Scripts embarcados em Lua para a placa LabJack T7-PRO com controle de memória e registradores Modbus.
+  * `electrical-panel-analyzer`: Leitura e extração de dados de diagramas e quadros elétricos.
+* **Jurídico e Proteção de Dados:**
+  * `advogado-especialista`: Suporte em direito civil, empresarial, trabalhista e contratos.
+  * `lgpd-*`: Conjunto de 18 módulos para auditoria, mapeamento de dados (ROPA), relatórios de impacto (RIPD) e atendimento a titulares.
+* **Visualização e Qualidade de Código:**
+  * `matplotlib` e `geopandas`: Geração de gráficos técnicos em alta resolução e análise de dados espaciais.
+  * `tdd-cycle-orchestrator` e `systematic-debugging`: Desenvolvimento orientado a testes e diagnóstico metódico de erros.
+  * `guri-core`: Script de inicialização e banner do terminal com frases do dia.
 
 ---
 
-### ⚖️ 4. Jurídico & Compliance LGPD (Lei 13.709/2018)
-* **`advogado-especialista`**: Assessoria multidisciplinar em Direito brasileiro (contratos, empresarial, civil, do consumidor e trabalhista).
-* **Suite de 18 Habilidades LGPD**: Mapeamento de dados (`ropa`), relatórios de impacto (`ripd`), gestão de consentimento (`consent-schema`), requisições de titulares (`dsar`), resposta a incidentes, criptografia e conformidade de fornecedores.
+## As 3 regras de hardware
+
+Em qualquer projeto de circuito impresso, o Guri segue três critérios práticos:
+1. **Módulos prontos:** Usar placas prontas comerciais (conversores DC-DC, transceivers RS485, ESP32) conectadas por barras de pinos. Evitar circuitos discretos complexos ao redor de chips avulsos.
+2. **Ergonomia de montagem:** Bornes voltados para as bordas externas da placa, furos de fixação M3 nos quatro cantos, pontos de teste acessíveis para multímetro e serigrafia legível.
+3. **Segregação de ruído:** Separar fisicamente a área de potência (alimentação, relés, motores) da área lógica e dos barramentos de comunicação (I2C, SPI, UART).
 
 ---
 
-### 📊 5. Visualização de Dados & Engenharia de Software
-* **`matplotlib`**: Padrão de gráficos em alta resolução (**300 DPI**), eixos com unidades físicas obrigatórias, escalas verticais compartilhadas e picos destacados.
-* **`geopandas`**: Manipulação e análise espacial de vetores e geodados.
-* **Metodologia de Software**: `tdd-cycle-orchestrator` (Test-Driven Development), `systematic-debugging` (diagnóstico em 4 fases), `systematic-code-reviewer` e `token-optimization`.
+## Como usar em outra máquina
 
----
-
-## 📁 Estrutura do Repositório
-
-```text
-Guri/
-├── assets/
-│   └── banner.svg                 # Banner oficial do Guri renderizado em alta definição
-├── README.md                      # Apresentação oficial e guia do cérebro
-├── AGENTS.md                      # Instruções de comportamento e operação autônoma
-├── .gitignore                     # Proteção contra logs, caches e arquivos de sessão
-│
-├── rules/                         # Diretrizes ativas em 100% das conversas
-│   ├── diretrizes-gerais.md       # Voz simples em pt-BR, gráficos a 300 DPI e regras de hardware
-│   ├── rotina-sync-encerramento.md# Protocolo obrigatório de salvar tudo antes de fechar
-│   └── seu-tom-de-voz.md          # Regras anti-IA e postura de bancada
-│
-├── skills/                        # As 28 habilidades práticas modulares
-│   ├── guri-core/                 # Identidade, frases aleatórias e banner do terminal
-│   ├── kicad10-hardware-design/   # Metodologia de PCB, regras COTS e DFM JLCPCB
-│   ├── kicad10-pcb-designer/      # Operações no KiCad 10 via MCP Server
-│   ├── leitor-catman/             # Processamento de .BIN/.TST a 19.2 kHz
-│   ├── labjack-lua/               # Scripts Lua para LabJack T7-PRO
-│   ├── seu-tom-de-voz/            # Manual editorial e script validador anti-IA
-│   ├── bom-lifecycle-auditor/     # Consulta à base local de 513k peças JLCPCB
-│   ├── advogado-especialista/     # Consultoria jurídica geral
-│   ├── lgpd-*/                    # 18 módulos de proteção de dados
-│   └── ...                        # Outras ferramentas
-│
-└── plugins/                       # Extensões avançadas de refatoração e SDKs
-```
-
----
-
-## 🚀 Como usar o Guri em qualquer máquina
-
-### 1. Clonar na máquina nova (Apenas uma vez)
-Abra o terminal PowerShell e clone direto na pasta de configuração do Antigravity:
+### 1. Clonar na pasta de configuração
+No PowerShell de um computador novo:
 ```powershell
 git clone https://github.com/kauan-barcellos/Guri.git $HOME\.gemini\config
 ```
 
-### 2. Ativar o comando `guri` no PowerShell
-Adicione a função no seu perfil (`$PROFILE`) para iniciar com o banner oficial:
+### 2. Ativar o comando guri no terminal
+Abra o arquivo de perfil do PowerShell (`notepad $PROFILE`) e adicione:
 ```powershell
 function guri {
     python "$HOME\.gemini\config\skills\guri-core\scripts\banner.py"
@@ -125,21 +75,12 @@ function guri {
 }
 ```
 
-### 3. No dia a dia de trabalho
-* **Ao começar o dia:**
+### 3. Rotina de sincronização
+* Ao começar o trabalho no dia:
   ```powershell
   cd $HOME\.gemini\config; git pull origin main
   ```
-* **Antes de encerrar a sessão:**
+* Ao terminar a sessão:
   ```powershell
-  cd $HOME\.gemini\config; git add -A; git commit -m "Novos aprendizados"; git push origin main
+  cd $HOME\.gemini\config; git add -A; git commit -m "Atualização de habilidades"; git push origin main
   ```
-
----
-
-<div align="center">
-
-**GURI — A mente que pensa**<br>
-<i>"Vem devagarinho. Qual a boa de hoje? É só querer!"</i>
-
-</div>
