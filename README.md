@@ -26,10 +26,19 @@ O conteúdo é organizado em três pastas principais:
 Diretrizes ativas em todas as conversas e projetos:
 * **`diretrizes-gerais.md`**: Linguagem direta em português do Brasil, sem termos rebuscados. Gráficos com 300 DPI, unidades físicas nos eixos e escalas comparáveis.
 * **`seu-tom-de-voz.md`**: Regras anti-IA para textos e conversas (sem travessões artificiais, sem oposições correlativas, sem clichês corporativos e com autoridade baseada em fatos).
+* **`analise-de-prompt-e-pesquisa.md`**: Análise e estruturação obrigatória de cada pedido antes da execução, além da escolha estratégica do padrão de busca na web.
 * **`rotina-sync-encerramento.md`**: Rotina de verificação e envio automático das alterações para o GitHub antes de fechar a sessão.
 
 ### 2. Habilidades de trabalho (`skills/`)
 Módulos carregados sob demanda pelo agente:
+* **Engenharia de Prompt e Arquitetura:**
+  * `prompt-dspy`: Estruturação declarativa de raciocínio (Input -> Thought -> Output) e otimização programática.
+  * `prompt-promptfoo`: Testes automatizados, matrizes de asserções em YAML e prevenção de regressões e falhas de borda.
+  * `prompt-fabric`: Padrões modulares de prompt (Fabric patterns) para desconstrução cirúrgica de tarefas humanas.
+* **Pesquisa na Internet e Extração Web:**
+  * `pesquisa-tavily`: Motor de busca contextual para RAG, respostas factuais diretas e contexto limpo sem ruído visual.
+  * `pesquisa-firecrawl`: Raspagem exaustiva de documentações técnicas, páginas em JavaScript e PDFs em formato Markdown.
+  * `pesquisa-brave`: Consultas velozes em índice global independente para mapeamento ágil de repositórios e links neutros.
 * **Hardware e PCB (KiCad 10):**
   * `kicad10-hardware-design` e `kicad10-pcb-designer`: Criação de placas, roteamento e geração de arquivos para fabricação na JLCPCB.
   * `bom-lifecycle-auditor`: Consulta ao banco de 513 mil componentes da JLCPCB para escolher peças de linha básica e evitar custos extras de montagem.
