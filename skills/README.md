@@ -30,6 +30,15 @@
 
 ---
 
+## Firmware e Sistemas Embarcados (ESP32, STM32 e Arduino)
+
+| Habilidade | Manual de Operação | Descrição e Propósito |
+| :--- | :--- | :--- |
+| **`embedded-c-cpp-patterns`** | [SKILL.md](embedded-c-cpp-patterns/SKILL.md) | Padrões de desenvolvimento em C e C++ para microcontroladores (ESP32, STM32 e Arduino). Guia de segurança de memória sem heap, rotinas de interrupção determinísticas (ISR), filas circulares (Ring Buffers), máquinas de estado (FSM) e uso da biblioteca ETL sem alocação dinâmica. |
+| **`platformio-workflow`** | [SKILL.md](platformio-workflow/SKILL.md) | Fluxo de trabalho de engenharia de firmware com PlatformIO para ESP32, STM32 e Arduino. Configuração multi-alvo em platformio.ini, testes unitários com Unity (tanto nativos no computador quanto físicos na placa), compilação com GCC e gerenciamento estrito de dependências. |
+
+---
+
 ## Padrões de Engenharia de Software
 
 | Habilidade | Manual de Operação | Descrição e Propósito |

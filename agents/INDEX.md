@@ -124,6 +124,9 @@ O agente coordenador (Guri) utiliza a habilidade subagent-orchestrator-jit para 
 | Subagente | Arquivo de Definição | Descrição / Foco |
 | :--- | :--- | :--- |
 | **embedded-firmware** | [embedded-firmware.md](file:///C:/Users/kauam.barcellos/.gemini/config/agents/embedded-firmware.md) | Embedded Firmware Specialist (Especialista em Firmware e Hardware Embutido) |
+| **esp32-specialist** | [esp32-specialist.md](file:///C:/Users/kauam.barcellos/.gemini/config/agents/esp32-specialist.md) | ESP32 Firmware Architect & Specialist (ESP-IDF, FreeRTOS, NimBLE, ESP-DSP) |
+| **stm32-specialist** | [stm32-specialist.md](file:///C:/Users/kauam.barcellos/.gemini/config/agents/stm32-specialist.md) | STM32 Firmware Architect & Specialist (Cortex-M, STM32Duino, Cube HAL/LL, libopencm3, DMA) |
+| **arduino-specialist** | [arduino-specialist.md](file:///C:/Users/kauam.barcellos/.gemini/config/agents/arduino-specialist.md) | Arduino Ecosystem & AVR/SAMD Specialist (ArduinoJson v7, TaskScheduler, ETL zero-heap) |
 
 ---
 
