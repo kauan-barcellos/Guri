@@ -1,35 +1,95 @@
 ---
 name: token-optimization
 description: >-
-  Workflows e técnicas validadas pela comunidade (baseado em bm629/agent-skills e alexgreensh/token-optimizer)
-  para minimizar consumo de tokens, eliminar saídas verbosas e manter alta fidelidade de contexto.
-  Use ao processar relatórios longos, executar lotes de ferramentas ou compactar sessões.
+  Suíte multi-frentes de economia e otimização dinâmica de tokens (baseada em Aider, RTK, Headroom, LLMLingua e GPTCache).
+  Contém scripts para extração AST Repo-Map, filtragem de logs/testes, poda de JSON/MCP, compressão textual e cache de fatos em SQLite.
 ---
 
-# Token Optimization for Autonomous Agents
+# Token Optimization Suite: Economia Dinâmica Multi-Frentes
 
-Este padrão operacional baseia-se em metodologias consolidadas de engenharia de contexto open-source para manter agentes enxutos, rápidos e de baixo custo.
-
----
-
-## 1. Princípios de Redução de Contexto (Context Pruning)
-
-1. **Evitar Eco de Arquivos (No Code Echoing):**
-   - Nunca reimprimir arquivos completos quando apenas linhas específicas forem modificadas.
-   - Fornecer links diretos no formato `file:///caminho#Lxx-Lyy` e exibir apenas o bloco diff necessário.
-
-2. **Supressão de Saídas Verbosas de Ferramentas:**
-   - Em saídas de DRC/ERC com dezenas de itens, resumir por categorias e severidades em vez de despejar logs brutos.
-   - Apontar o relatório em disco (`file:///.../drc_report.rpt`) para auditoria sob demanda.
-
-3. **Operações em Lote (*Batch Invocation*):**
-   - Agrupar múltiplos componentes, conexões e modificações em chamadas compostas para reduzir a quantidade de turnos e cabeçalhos repetidos da API.
+Este guia e conjunto de ferramentas implementam uma abordagem em 5 frentes ativas para reduzir o consumo de tokens, acelerar respostas e impedir a degradação da janela de contexto.
 
 ---
 
-## 2. Sobrevivência à Compactação (Compaction Resilience)
+## 1. As 5 Frentes de Economia Implementadas
 
-1. **Memória Fora da Janela (Externalized State):**
-   - Estado permanente, decisões arquiteturais e tabelas de pinagem residem em arquivos Markdown rastreados (`PROJECT_MEMORY.md`), e não no histórico de mensagens.
-2. **Recomendação de `/compact`:**
-   - Quando o histórico da conversa crescer, acionar o `/compact` para liberar espaço na janela de contexto mantendo a memória persistente intacta.
+A suíte está implementada em Python nativo dentro da pasta `scripts/token_optimizer/` sem dependências externas:
+
+```
+[ Entrada Bruta ] ──► [ TokenOptimizer (Auto-Detecção) ]
+                             │
+                             ├─► Código/Diretório: AST Repo-Map (Aider)    [-80% a -90%]
+                             ├─► Logs/Terminal:    Log Filter (RTK)        [-60% a -85%]
+                             ├─► JSON/MCPs:        JSON Pruner (Headroom)  [-60% a -95%]
+                             ├─► Textos Longos:    Text Paring (LLMLingua) [-40% a -60%]
+                             └─► Consultas Fixas:  Fact Cache (GPTCache)   [-100% Zero Token]
+```
+
+### Frente 1: AST Repo-Map (`repo_map.py`)
+* **Inspirado no:** Aider (50k estrelas).
+* **Mecanismo:** Analisa arquivos Python usando a biblioteca nativa `ast`, extrai assinaturas de classes, métodos, parâmetros, retornos e docstrings de cabeçalho, descartando o corpo das funções.
+* **Uso:** Navegação inicial em novos repositórios sem ler todos os arquivos na íntegra.
+
+### Frente 2: Filtro Ativo de Logs e Terminal (`log_filter.py`)
+* **Inspirado no:** RTK (86k estrelas).
+* **Mecanismo:** Remove sequências de escape ANSI, barras de progresso e compacta linhas consecutivas idênticas, preservando integralmente tracebacks, exceções e o resumo de execução do `pytest`.
+* **Uso:** Sanitização de saídas de testes e compilação antes de entrar no contexto.
+
+### Frente 3: Poda e Tabularização de JSON/MCP (`json_pruner.py`)
+* **Inspirado no:** Headroom (80k estrelas).
+* **Mecanismo:** Remove recursivamente chaves com valores nulos, dicionários vazios e listas vazias. Converte automaticamente coleções de dicionários homogêneos em tabelas colunares densas.
+* **Uso:** Compactação de respostas volumosas de servidores MCP (KiCad, metadados de pinos).
+
+### Frente 4: Poda Textual de Redundâncias (`text_compressor.py`)
+* **Inspirado no:** LLMLingua (7k estrelas).
+* **Mecanismo:** Deduplicação de parágrafos idênticos e remoção de clichês e preenchimentos conversacionais, preservando tabelas, números e blocos de código.
+* **Uso:** Compactação de relatórios densos e transcrições de ensaios.
+
+### Frente 5: Cache Local de Fatos e Regras (`fact_cache.py`)
+* **Inspirado no:** GPTCache (8k estrelas).
+* **Mecanismo:** Banco relacional SQLite local que armazena regras imutáveis de engenharia (limites DFM JLCPCB, especificações de componentes, limites de pinos do LabJack).
+* **Uso:** Zero consumo de tokens em perguntas conceituais repetitivas.
+
+---
+
+## 2. Como Utilizar a Suíte
+
+### Via Linha de Comando (CLI):
+```powershell
+# Configurar PYTHONPATH temporário apontando para scripts
+$env:PYTHONPATH="C:\Users\kauam.barcellos\.gemini\config\skills\token-optimization\scripts"
+
+# 1. Gerar Repo-Map condensado de uma pasta ou arquivo
+python -m token_optimizer --path "C:\Projetos\MeuProjeto"
+
+# 2. Filtrar arquivo de log verboso
+python -m token_optimizer --log "caminho\output.log"
+
+# 3. Compactar payload JSON bruto
+python -m token_optimizer --json "{'status': 'ok', 'vazio': null, 'itens': [{'id': 1}, {'id': 2}]}"
+
+# 4. Consultar fato em cache (100% de economia)
+python -m token_optimizer --cache-get jlcpcb "regras dfm 2 camadas"
+```
+
+### Via Código Python:
+```python
+import sys
+sys.path.insert(0, r"C:\Users\kauam.barcellos\.gemini\config\skills\token-optimization\scripts")
+
+from token_optimizer import TokenOptimizer
+
+optimizer = TokenOptimizer()
+resultado = optimizer.optimize(dados_brutos)
+print(f"Estratégia: {resultado['strategy']} | Economia: {resultado['savings_percentage']}%")
+print(resultado["content"])
+```
+
+---
+
+## 3. Checklist de Eficiência do Agente
+
+* [ ] Ao inspecionar estrutura de pastas pela primeira vez, utilizar `repo_map` antes de ler arquivos inteiros.
+* [ ] Em saídas longas de testes ou compilador, rodar o `log_filter` antes de exibir o erro.
+* [ ] Em retornos volumosos de ferramentas/MCP, podar chaves nulas com `json_pruner`.
+* [ ] Consultas sobre DFM e especificações fixas devem consultar o `fact_cache`.
