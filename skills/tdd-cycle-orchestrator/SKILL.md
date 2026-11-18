@@ -36,3 +36,9 @@ Esta skill impõe o ciclo rigoroso de desenvolvimento orientado a testes, proibi
 
 - **Testar Comportamento, Não Detalhes Privados:** Os testes devem validar entradas e saídas de contratos públicos, permitindo que a estrutura interna seja refatorada sem quebrar os testes.
 - **Isolamento de Efeitos Colaterais:** Testes unitários devem usar diretórios temporários (`tmp_path`) ou mocks de rede para nunca poluir o workspace real do usuário.
+
+
+---
+
+## 5. Implementação Concreta em Python
+Para a sintaxe exata de fixtures, parametrização de casos de borda e asserções com Pytest, adote os padrões de [python-testing](file:///C:/Users/kauam.barcellos/.gemini/config/skills/python-testing/SKILL.md).

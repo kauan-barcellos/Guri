@@ -84,3 +84,9 @@ O orquestrador consulta o catálogo sob demanda, garantindo custo zero de tokens
 * [ ] Se for Nível 3, selecionei o perfil estritamente adequado para a tarefa.
 * [ ] O prompt enviado ao subagente contém apenas o contexto necessário (arquivos específicos, logs ou diffs).
 * [ ] O parecer final retornado ao usuário é limpo, direto e sem poluição de logs intermediários.
+
+
+---
+
+## 5. Integração com Fan-Out e MapReduce
+Quando a tarefa de Nível 3 envolver varredura massiva de mais de 10 arquivos independentes ou auditoria concorrente de múltiplos repositórios, o orquestrador JIT convoca o padrão [subagent-orchestrator-mapreduce](file:///C:/Users/kauam.barcellos/.gemini/config/skills/subagent-orchestrator-mapreduce/SKILL.md) para processamento distribuído.

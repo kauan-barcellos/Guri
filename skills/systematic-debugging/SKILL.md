@@ -37,3 +37,10 @@ Esta skill proíbe o comportamento não-determinístico de "tentativa e erro des
 - Execute imediatamente a ferramenta de teste (`run_erc` ou `run_drc`).
 - Verifique se o erro desapareceu E se a contagem total de outros erros não aumentou.
 - Se o erro persistir após 2 tentativas com hipóteses fundamentadas, acione o rollback de segurança via `circuit_checkpoint.py --rollback`.
+
+
+---
+
+## 5. Ferramentas Automatizadas de Apoio
+* **Sanitização de Saídas:** Utilize o `log_filter` da [token-optimization](file:///C:/Users/kauam.barcellos/.gemini/config/skills/token-optimization/SKILL.md) para filtrar tracebacks longos antes da análise.
+* **Subagente Especializado:** Em erros crônicos de build ou compilação, convoque o subagente JIT [build-error-resolver](file:///C:/Users/kauam.barcellos/.gemini/config/agents/build-error-resolver.md).
