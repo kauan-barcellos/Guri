@@ -7,8 +7,8 @@
 [![Status](https://img.shields.io/badge/Status-%C3%89%20s%C3%B3%20querer!-00C853?style=for-the-badge)](https://github.com/kauan-barcellos/Guri)
 [![Language](https://img.shields.io/badge/Idioma-pt--BR-blue?style=for-the-badge)](https://github.com/kauan-barcellos/Guri)
 [![Antigravity](https://img.shields.io/badge/Powered%20By-Antigravity%20CLI-blueviolet?style=for-the-badge)](https://antigravity.google)
-[![Subagents](https://img.shields.io/badge/Subagentes-82%20Especialistas-orange?style=for-the-badge)](agents/INDEX.md)
-[![Skills](https://img.shields.io/badge/Skills-64%20Modulares-success?style=for-the-badge)](skills/)
+[![Subagents](https://img.shields.io/badge/Subagentes-82%20Especialistas-orange?style=for-the-badge)](agents/README.md)
+[![Skills](https://img.shields.io/badge/Skills-64%20Modulares-success?style=for-the-badge)](skills/README.md)
 [![KiCad](https://img.shields.io/badge/CAD-KiCad%2010.0-314CB6?style=for-the-badge&logo=kicad&logoColor=white)](https://kicad.org)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
@@ -46,10 +46,10 @@ O **Guri** é a inteligência central e parceiro operacional para desenvolviment
 O sistema opera com uma régua de complexidade estrita para evitar poluição de contexto e consumo desnecessário de tokens:
 
 * **Nível 1 (Baixa Complexidade):** Respostas rápidas e ajustes pontuais resolvidos imediatamente sem disparar subagentes.
-* **Nível 2 (Média Complexidade):** Implementações estruturadas seguindo as [Skills Locais](skills/) (`python-testing`, `git-workflow`, `search-first`).
+* **Nível 2 (Média Complexidade):** Implementações estruturadas seguindo as [Skills Locais](skills/README.md) (`python-testing`, `git-workflow`, `search-first`).
 * **Nível 3 (Alta Complexidade):** Ativação isolada e temporária de especialistas do catálogo em segundo plano via `subagent-orchestrator-jit`.
 
-Consulte o [Catálogo Completo de Subagentes](agents/INDEX.md) para ver todos os 82 especialistas disponíveis.
+Consulte o [Catálogo Completo de Subagentes](agents/README.md) para ver todos os 82 especialistas disponíveis.
 
 ---
 
