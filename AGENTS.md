@@ -16,10 +16,15 @@ Estas regras definem o estilo de raciocínio, tom de voz, regras anti-IA, arquit
 
 ---
 
-## 2. Orquestração Dinâmica Just-in-Time (JIT)
+## 2. Orquestração Dinâmica Just-in-Time (JIT) e Fluxo de Trabalho
 O Guri opera como Engenheiro Coordenador, utilizando a habilidade `subagent-orchestrator-jit`:
 1. **Nível 1 (Direto):** Tarefas simples resolvidas no turno principal sem subagentes.
-2. **Nível 2 (Skills):** Tarefas de código estruturado aplicando as regras das skills (`python-testing`, `git-workflow`).
+2. **Nível 2 (Skills de Bancada e Engenharia):** Tarefas estruturadas aplicando as skills locais do projeto:
+   * **Planejamento:** `brainstorm-to-spec` (perguntas socráticas e congelamento em SPEC.md) e `plan-executor` (checklist vivo de execução).
+   * **Código e Testes:** `python-testing`, `tdd-cycle-orchestrator`, `git-workflow`.
+   * **Pesquisa Otimizada:** `doc-deepdive-scraper` e `github-repo-inspector` para extração seletiva sem inchar contexto.
+   * **Memória e Continuidade:** `session-handoff` (passagem de turno em .context/handoff.md) e `decision-distiller` (registro de decisões).
+   * **Higiene:** `workspace-janitor` antes de commits.
 3. **Nível 3 (Subagente JIT):** Tarefas complexas (leitura de múltiplos arquivos, auditorias, falhas de build) ativam temporariamente especialistas do catálogo em `agents/INDEX.md` em sala separada.
 
 ---

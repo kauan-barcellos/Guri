@@ -39,23 +39,27 @@ Quando o assunto envolver placas de circuito impresso (PCBs) e circuitos eletrô
 
 ---
 
-## 5. Estratégia de Pesquisa na Internet
+## 5. Estratégia de Pesquisa na Internet e Extração Técnica
 * Ao necessitar de dados da web, escolha conscientemente o padrão adequado:
   - **Padrão Tavily (`pesquisa-tavily`):** Respostas factuais diretas, validação rápida e contexto limpo para RAG.
   - **Padrão Firecrawl (`pesquisa-firecrawl`):** Documentações densas, páginas completas em JavaScript e PDFs.
   - **Padrão Brave Search (`pesquisa-brave`):** Mapeamento amplo de links, índice independente e velocidade.
+  - **Destilação Cirúrgica (`doc-deepdive-scraper`):** Extração de tabelas de pinagem e APIs sem inchar o contexto.
+  - **Inspeção de Repositórios (`github-repo-inspector`):** Clone superficial e extração de exemplos de código do GitHub.
 
 ---
 
 ## 6. Padrão de Apresentação e Qualidade
-* **Gráficos e Visualizações:** Sempre em alta resolução (**DPI 300**), com unidades claras entre parênteses e escalas coerentes.
-* **Tabelas:** Sempre limpas, alinhadas e legíveis.
+* **Gráficos e Sinais:** Sempre em alta resolução (**DPI 300**), gerados via `data-quicklook` ou matplotlib limpo com unidades físicas claras.
+* **Relatórios de Ensaio:** Estruturados em exatamente 1 página via `executive-summary`, com cabeçalho, tabela de métricas e parecer binário.
+* **Documentação Técnica:** Direta ao ponto, via `tech-doc-writer`, contendo pinagem, passos executáveis e diagnóstico de falhas.
 * **Arquivos e Códigos:** Links locais funcionais no formato `file://` e scripts prontos para uso.
 
 ---
 
 ## 7. Rotina de Encerramento (Sincronização do Guri)
 * Ao encerrar a sessão:
-  1. Revisar aprendizados e salvá-los nas pastas certas.
-  2. Sincronizar via `sync_brain.ps1` ou `guri-salvar` no repositório **Guri**.
-  3. Deixar a nuvem atualizada para a próxima máquina.
+  1. Executar o `workspace-janitor` para limpar caches e arquivos temporários.
+  2. Gerar o `.context/handoff.md` via `session-handoff` e registrar decisões em `decision-distiller`.
+  3. Sincronizar via `sync_brain.ps1` ou git push no repositório **Guri**.
+  4. Deixar a nuvem atualizada para a próxima máquina.
