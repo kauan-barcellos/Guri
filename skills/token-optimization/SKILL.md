@@ -50,6 +50,10 @@ A suíte está implementada em Python nativo dentro da pasta `scripts/token_opti
 * **Mecanismo:** Banco relacional SQLite local que armazena regras imutáveis de engenharia (limites DFM JLCPCB, especificações de componentes, limites de pinos do LabJack).
 * **Uso:** Zero consumo de tokens em perguntas conceituais repetitivas.
 
+### Frente 6: Telemetria e Monitor de Tokens (`guri_stats.py`)
+* **Mecanismo:** Monitor de telemetria em tempo real que lê o transcript da sessão ativa, calcula a janela de contexto atual, o total de tokens (Input, Output, Prompt Cache) e o ranking de chamadas de ferramentas.
+* **Uso:** Permite auditar a qualquer momento o uso de tokens da sessão e saber a hora exata de rodar `/compact`.
+
 ---
 
 ## 2. Como Utilizar a Suíte
@@ -70,6 +74,9 @@ python -m token_optimizer --json "{'status': 'ok', 'vazio': null, 'itens': [{'id
 
 # 4. Consultar fato em cache (100% de economia)
 python -m token_optimizer --cache-get jlcpcb "regras dfm 2 camadas"
+
+# 5. Monitorar telemetria de tokens e contexto da sessão ativa
+python scripts\guri_stats.py
 ```
 
 ### Via Código Python:
