@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 GURI STATS - Telemetria e Monitor de Tokens e Contexto
-Lê o transcript da sessão ativa do Antigravity CLI e gera um relatório detalhado
-de consumo de tokens, eficiência de cache, uso da janela de contexto e chamadas de ferramentas.
+Lê os transcripts do Antigravity CLI e gera relatórios detalhados da sessão ativa
+ou o histórico consolidado de todas as sessões anteriores.
 """
 
 import os
@@ -33,11 +33,26 @@ MODEL_CAPACITIES = {
 }
 DEFAULT_CAPACITY = 1_000_000
 
+def get_brain_dir():
+    return os.path.expanduser("~/.gemini/antigravity-cli/brain")
+
+def find_all_sessions():
+    bdir = get_brain_dir()
+    if not os.path.exists(bdir):
+        return []
+    sessions = []
+    for item in os.listdir(bdir):
+        p = os.path.join(bdir, item, ".system_generated", "logs", "transcript.jsonl")
+        if os.path.exists(p):
+            sessions.append((item, p, os.path.getmtime(p)))
+    sessions.sort(key=lambda x: x[2])
+    return sessions
+
 def find_active_transcript(explicit_id=None, explicit_path=None):
     if explicit_path and os.path.exists(explicit_path):
         return explicit_path
 
-    brain_dir = os.path.expanduser("~/.gemini/antigravity-cli/brain")
+    brain_dir = get_brain_dir()
     if not os.path.exists(brain_dir):
         return None
 
@@ -47,13 +62,10 @@ def find_active_transcript(explicit_id=None, explicit_path=None):
             return target
         return None
 
-    pattern = os.path.join(brain_dir, "*", ".system_generated", "logs", "transcript.jsonl")
-    candidates = glob.glob(pattern)
-    if not candidates:
+    sessions = find_all_sessions()
+    if not sessions:
         return None
-
-    candidates.sort(key=os.path.getmtime, reverse=True)
-    return candidates[0]
+    return sessions[-1][1]
 
 def render_bar(percentage, width=28):
     filled = int(round(width * (percentage / 100.0)))
@@ -80,7 +92,7 @@ def analyze_transcript(transcript_path):
         "last_timestamp": None,
     }
 
-    with open(transcript_path, "r", encoding="utf-8") as f:
+    with open(transcript_path, "r", encoding="utf-8", errors="ignore") as f:
         for line in f:
             if not line.strip():
                 continue
@@ -216,19 +228,76 @@ def display_stats(stats):
         print(f"  {GREEN}Janela de contexto saudável.{RESET} Sessão pronta para novas tarefas de engenharia.")
     print(f"{BOLD}{CYAN}========================================================================={RESET}\n")
 
+def display_history():
+    sessions = find_all_sessions()
+    if not sessions:
+        print(f"{RED}Nenhuma sessão encontrada.{RESET}")
+        return
+
+    print(f"\n{BOLD}{CYAN}========================================================================={RESET}")
+    print(f"{BOLD}{CYAN}      GURI - HISTÓRICO GLOBAL CONSOLIDADO DE TOKENS E SESSÕES            {RESET}")
+    print(f"{BOLD}{CYAN}========================================================================={RESET}")
+    print(f"{BOLD}Total de sessões localizadas no histórico:{RESET} {len(sessions)}\n")
+
+    grand_in = 0
+    grand_cache = 0
+    grand_out = 0
+    grand_steps = 0
+    grand_user_msgs = 0
+
+    print(f"{'Sessão / Início':<24} | {'Msgs':<5} | {'Passos':<7} | {'Tokens Novos':<13} | {'Prompt Cache':<13} | {'Economia':<8}")
+    print("-" * 80)
+
+    for i, (cid, p, mtime) in enumerate(sessions, 1):
+        st = analyze_transcript(p)
+        grand_in += st["total_input_tokens"]
+        grand_cache += st["total_cache_tokens"]
+        grand_out += st["total_output_tokens"]
+        grand_steps += st["total_steps"]
+        grand_user_msgs += st["user_messages"]
+
+        total_inp = st["total_input_tokens"] + st["total_cache_tokens"]
+        econ = (st["total_cache_tokens"] / total_inp * 100.0) if total_inp > 0 else 0.0
+
+        label_date = st["first_timestamp"][:10] if st["first_timestamp"] else cid[:8]
+        s_title = f"{i}. {label_date} ({cid[:6]})"
+
+        print(f"{s_title:<24} | {st['user_messages']:<5} | {st['total_steps']:<7} | {st['total_input_tokens']:>12,}  | {st['total_cache_tokens']:>12,}  | {GREEN}{econ:6.1f}%{RESET}")
+
+    grand_total_tokens = grand_in + grand_cache + grand_out
+    global_econ = (grand_cache / (grand_in + grand_cache) * 100.0) if (grand_in + grand_cache) > 0 else 0.0
+
+    print("-" * 80)
+    print(f"\n{BOLD}🎯 TOTAIS GLOBAIS ACUMULADOS:{RESET}")
+    print(f"  * Total de Interações do Usuário:    {BOLD}{grand_user_msgs:,}{RESET} mensagens")
+    print(f"  * Total de Passos de Execução:       {BOLD}{grand_steps:,}{RESET} passos")
+    print(f"  * Tokens de Entrada Novos (Input):   {BOLD}{grand_in:>12,}{RESET}")
+    print(f"  * Tokens Reaproveitados de Cache:    {GREEN}{grand_cache:>12,}{RESET}")
+    print(f"  * Tokens Gerados de Saída (Output):  {BOLD}{grand_out:>12,}{RESET}")
+    print(f"  {DIM}{'-'*52}{RESET}")
+    print(f"  * {BOLD}Volume Total Processado:{RESET}            {CYAN}{BOLD}{grand_total_tokens:>12,}{RESET} tokens")
+
+    print(f"\n  {BOLD}Taxa Global de Economia por Caching:{RESET} {GREEN}{BOLD}{global_econ:.2f}%{RESET}")
+    print(f"  {DIM}De {grand_in + grand_cache:,} tokens de entrada totais, {grand_cache:,} foram lidos{RESET}")
+    print(f"  {DIM}diretamente do cache de contexto sem custo computacional completo.{RESET}")
+    print(f"{BOLD}{CYAN}========================================================================={RESET}\n")
+
 def main():
     parser = argparse.ArgumentParser(description="Guri - Telemetria de Tokens e Contexto")
+    parser.add_argument("--history", "--all", action="store_true", help="Exibe o histórico consolidado de todas as sessões")
     parser.add_argument("--id", help="ID da conversa específica (padrão: sessão mais recente)")
     parser.add_argument("--path", help="Caminho direto para o arquivo transcript.jsonl")
     args = parser.parse_args()
 
-    tpath = find_active_transcript(explicit_id=args.id, explicit_path=args.path)
-    if not tpath:
-        print(f"{RED}Erro: Nenhum arquivo transcript.jsonl encontrado em ~/.gemini/antigravity-cli/brain/{RESET}")
-        sys.exit(1)
-
-    stats = analyze_transcript(tpath)
-    display_stats(stats)
+    if args.history:
+        display_history()
+    else:
+        tpath = find_active_transcript(explicit_id=args.id, explicit_path=args.path)
+        if not tpath:
+            print(f"{RED}Erro: Nenhum arquivo transcript.jsonl encontrado em ~/.gemini/antigravity-cli/brain/{RESET}")
+            sys.exit(1)
+        stats = analyze_transcript(tpath)
+        display_stats(stats)
 
 if __name__ == "__main__":
     main()
