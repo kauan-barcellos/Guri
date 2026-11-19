@@ -53,6 +53,7 @@ Quando o assunto envolver placas de circuito impresso (PCBs) e circuitos eletrô
 * **Gráficos e Sinais:** Sempre em alta resolução (**DPI 300**), gerados via `data-quicklook` ou matplotlib limpo com unidades físicas claras.
 * **Relatórios de Ensaio:** Estruturados em exatamente 1 página via `executive-summary`, com cabeçalho, tabela de métricas e parecer binário.
 * **Documentação Técnica:** Direta ao ponto, via `tech-doc-writer`, contendo pinagem, passos executáveis e diagnóstico de falhas.
+* **Gestão de Horas e OSIs:** Auditoria diária e reporte automático via `osis-timesheet-manager` para manter saldo e apontamentos em dia sem retrabalho manual.
 * **Arquivos e Códigos:** Links locais funcionais no formato `file://` e scripts prontos para uso.
 
 ---

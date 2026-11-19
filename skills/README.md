@@ -29,6 +29,7 @@
 | **`electrical-panel-analyzer`** | [SKILL.md](electrical-panel-analyzer/SKILL.md) | Guides the agent in systematically analyzing visual PDFs and images of electrical panel diagrams. Extracts dimensions, internal/external layouts, and component TAGs without hallucination, outputting a professional Markdown report. |
 | **`data-quicklook`** | [SKILL.md](data-quicklook/SKILL.md) | Inspecao estatistica e visualizacao rapida de arquivos de aquisicao de dados e sinais de bancada (CSV, BIN, TXT). Use para carregar medicoes de DAQ, calcular picos, medias, RMS e gerar graficos limpos de verificacao imediata no terminal. |
 | **`executive-summary`** | [SKILL.md](executive-summary/SKILL.md) | Geracao de resumos executivos de 1 pagina e relatorios consolidados de ensaios e medicoes de bancada. Use apos sessoes de teste (Catman, LabJack, ensaios de torque ou carga) para entregar conclusoes tecnicas diretas para tomada de decisao. |
+| **`osis-timesheet-manager`** | [SKILL.md](osis-timesheet-manager/SKILL.md) | Gestor e auditor automatico de reporte de horas e OSIs na plataforma intranet (Node.js/Express). Use sempre que o usuario pedir para checar horas pendentes, auditar dias faltantes no mes, ver saldo de OSIs ou lancar horas de trabalho. |
 
 ---
 

@@ -8,7 +8,7 @@
 [![Language](https://img.shields.io/badge/Idioma-pt--BR-blue?style=for-the-badge)](https://github.com/kauan-barcellos/Guri)
 [![Antigravity](https://img.shields.io/badge/Powered%20By-Antigravity%20CLI-blueviolet?style=for-the-badge)](https://antigravity.google)
 [![Subagents](https://img.shields.io/badge/Subagentes-85%20Especialistas-orange?style=for-the-badge)](agents/README.md)
-[![Skills](https://img.shields.io/badge/Skills-77%20Modulares-success?style=for-the-badge)](skills/README.md)
+[![Skills](https://img.shields.io/badge/Skills-78%20Modulares-success?style=for-the-badge)](skills/README.md)
 [![KiCad](https://img.shields.io/badge/CAD-KiCad%2010.0-314CB6?style=for-the-badge&logo=kicad&logoColor=white)](https://kicad.org)
 [![Embedded](https://img.shields.io/badge/Firmware-ESP32%20%7C%20STM32%20%7C%20Arduino-00979D?style=for-the-badge)](skills/README.md#firmware-e-sistemas-embarcados-esp32-stm32-e-arduino)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
