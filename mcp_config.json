@@ -11,6 +11,14 @@
         "KICAD_CLI_PATH": "C:\\Users\\kauam.barcellos\\AppData\\Local\\Programs\\KiCad\\10.0\\bin\\kicad-cli.exe",
         "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jre-25.0.5.8-hotspot"
       }
+    },
+    "freecad": {
+      "command": "C:\\Users\\kauam.barcellos\\AppData\\Roaming\\Python\\Python314\\Scripts\\uvx.exe",
+      "args": [
+        "freecad-mcp",
+        "--freecadcmd",
+        "C:\\Program Files\\FreeCAD 1.1\\bin\\freecadcmd.exe"
+      ]
     }
   }
 }
