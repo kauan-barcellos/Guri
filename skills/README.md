@@ -27,6 +27,8 @@
 | **`labjack-lua`** | [SKILL.md](labjack-lua/SKILL.md) | Guia e regras obrigatórias para desenvolvimento de scripts Lua embarcados na LabJack T7-PRO e T-Series. Use sempre que o usuário pedir para criar, modificar, analisar ou otimizar scripts Lua para a LabJack, garantindo conformidade com limites de memória RAM, precisão float 32-bit, temporização, interação via USER_RAM e boas práticas do manual oficial. |
 | **`leitor-catman`** | [SKILL.md](leitor-catman/SKILL.md) | Guia e scripts para leitura, processamento e análise de arquivos de aquisição de dados do software HBM catman (.BIN e .TST). Use sempre que precisar inspecionar canais, ler sinais de alta frequência (DAQ), filtrar/decimar dados sem ruído, ou calcular parâmetros de ensaios de torque e ferramentas de impacto (picos, frequência de golpes IPM e relação com corrente). |
 | **`electrical-panel-analyzer`** | [SKILL.md](electrical-panel-analyzer/SKILL.md) | Guides the agent in systematically analyzing visual PDFs and images of electrical panel diagrams. Extracts dimensions, internal/external layouts, and component TAGs without hallucination, outputting a professional Markdown report. |
+| **`data-quicklook`** | [SKILL.md](data-quicklook/SKILL.md) | Inspecao estatistica e visualizacao rapida de arquivos de aquisicao de dados e sinais de bancada (CSV, BIN, TXT). Use para carregar medicoes de DAQ, calcular picos, medias, RMS e gerar graficos limpos de verificacao imediata no terminal. |
+| **`executive-summary`** | [SKILL.md](executive-summary/SKILL.md) | Geracao de resumos executivos de 1 pagina e relatorios consolidados de ensaios e medicoes de bancada. Use apos sessoes de teste (Catman, LabJack, ensaios de torque ou carga) para entregar conclusoes tecnicas diretas para tomada de decisao. |
 
 ---
 
@@ -54,6 +56,10 @@
 | **`search-first`** | [SKILL.md](search-first/SKILL.md) | Protocolo de pesquisa e leitura obrigatória de contexto antes de implementar ou modificar código (baseado em affaan-m/ECC). Impede suposições e reinvenção de roda forçando varredura de pacotes, APIs e código existente. |
 | **`systematic-code-reviewer`** | [SKILL.md](systematic-code-reviewer/SKILL.md) | Revisor critico adversarial de codigo, scripts e configuracoes antes do commit. Use ao finalizar qualquer implementacao para auditar casos de borda, complexidade, vazamento de recursos e seguranca. |
 | **`github-ops`** | [SKILL.md](github-ops/SKILL.md) | Automação de operações no GitHub via linha de comando gh CLI (baseado em affaan-m/ECC). Gerenciamento de Pull Requests, triagem de issues, download de artefatos e criação de releases. |
+| **`brainstorm-to-spec`** | [SKILL.md](brainstorm-to-spec/SKILL.md) | Refinamento socratico de ideias e congelamento de requisitos em SPEC.md antes da escrita de codigo ou layout. Use ao iniciar qualquer nova funcionalidade ou circuito para fazer perguntas cirurgicas e evitar retrabalho. |
+| **`github-repo-inspector`** | [SKILL.md](github-repo-inspector/SKILL.md) | Inspecao e dissecação rapida de repositorios do GitHub com extracao direcionada de codigo sem queimar contexto. Use para analisar bibliotecas abertas, clonar referencias em pasta temporaria e extrair apenas assinaturas de funcoes e exemplos essenciais. |
+| **`git-worktree-helper`** | [SKILL.md](git-worktree-helper/SKILL.md) | Gerenciamento de git worktrees para testes arriscados, spikes de arquitetura e validacoes em diretorios isolados. Use para criar branches de teste isoladas sem alterar a arvore de trabalho principal do projeto. |
+| **`workspace-janitor`** | [SKILL.md](workspace-janitor/SKILL.md) | Higienizacao e faxina sistematica do diretorio de trabalho contra arquivos orfaos, backups de CAD e caches temporarios. Use periodicamente ou antes de commits para identificar lixo de compilacao, logs residuais e relatorios descartaveis. |
 
 ---
 
@@ -76,6 +82,9 @@
 | **`task-decomposition-and-tracking`** | [SKILL.md](task-decomposition-and-tracking/SKILL.md) | Decomposicao atomica de tarefas e rastreamento persistente de progresso via checklist vivo. Use em solicitacoes de multiplos passos para estruturar o roadmap, evitar esquecimento de etapas e reportar status claro. |
 | **`guri-core`** | [SKILL.md](guri-core/SKILL.md) | Núcleo de inicialização, identidade visual e banner do assistente Guri. Contém o script de inicialização do terminal (banner.py), as frases descontraídas de boas-vindas e os comandos de inicialização para qualquer máquina. |
 | **`project-architect`** | [SKILL.md](project-architect/SKILL.md) | Engenharia guiada por especificacao e planejamento arquitetural formal (Spec-Driven Development). Use antes de iniciar qualquer funcionalidade ou projeto complexo para congelar requisitos no SPEC.md e evitar retrabalho. |
+| **`session-handoff`** | [SKILL.md](session-handoff/SKILL.md) | Protocolo de passagem de turno e persistencia de estado entre sessoes via .context/handoff.md. Use ao encerrar tarefas longas, antes de reiniciar a conversa ou ao iniciar uma nova sessao para recuperar o fio da meada. |
+| **`decision-distiller`** | [SKILL.md](decision-distiller/SKILL.md) | Destilador de decisoes de bancada, preferencias tecnicas do usuario e licoes aprendidas em arquivos vivos de contexto. Use apos correcoes de curso do usuario ou ao consolidar escolhas de arquitetura para atualizar a memoria persistente do projeto. |
+| **`plan-executor`** | [SKILL.md](plan-executor/SKILL.md) | Execucao atomica e rastreavel de planos de engenharia passo a passo com checklists e validacao por portao. Use para guiar a implementacao de tarefas complexas mantendo o checklist vivo e validado a cada etapa. |
 
 ---
 
@@ -117,6 +126,7 @@
 | **`pesquisa-brave`** | [SKILL.md](pesquisa-brave/SKILL.md) | Consultas rápidas e de alto volume em índice global independente via Brave Search. Use para varredura multi-link, descoberta rápida de URLs e dados brutos em JSON sem viés de mecanismos tradicionais. |
 | **`pesquisa-firecrawl`** | [SKILL.md](pesquisa-firecrawl/SKILL.md) | Raspagem avançada e extração profunda da web via Firecrawl. Use quando precisar extrair documentações técnicas completas, páginas complexas renderizadas em JavaScript, PDFs ou varrer domínios inteiros em formato Markdown limpo. |
 | **`pesquisa-tavily`** | [SKILL.md](pesquisa-tavily/SKILL.md) | Especialista em pesquisa rápida e contextual na internet via Tavily / RAG. Use quando precisar de respostas diretas, fatos consolidados, fontes citadas e contexto limpo sem ruído de HTML. |
+| **`doc-deepdive-scraper`** | [SKILL.md](doc-deepdive-scraper/SKILL.md) | Sintetizador e extrator cirurgico de documentacao tecnica, APIs e datasheets da web sem inchaço de tokens. Use ao pesquisar novas bibliotecas, componentes ou documentacoes online para extrair apenas tabelas de pinagem, assinaturas e exemplos praticos. |
 | **`prompt-dspy`** | [SKILL.md](prompt-dspy/SKILL.md) | Engenharia de prompt programática e declarativa (Stanford DSPy). Use para estruturar pedidos complexos em assinaturas formais (Input -> Thought -> Output), encadeamento Chain-of-Thought / ReAct e otimização algorítmica de instruções. |
 | **`prompt-fabric`** | [SKILL.md](prompt-fabric/SKILL.md) | Padrões modulares de prompt (Fabric Patterns) para estruturação atômica de tarefas. Use para decompor pedidos do usuário em etapas cirúrgicas (extrair sabedoria, analisar argumentos, gerar resumos técnicos, auditar código). |
 | **`prompt-promptfoo`** | [SKILL.md](prompt-promptfoo/SKILL.md) | Auditoria, testes de regressão e segurança de prompts (Promptfoo). Use para criar matrizes de avaliação em YAML, comparar modelos e testar resiliência contra injeção de prompt e casos de borda. |
@@ -140,5 +150,6 @@
 | Habilidade | Manual de Operação | Descrição e Propósito |
 | :--- | :--- | :--- |
 | **`evidence-backed-verification`** | [SKILL.md](evidence-backed-verification/SKILL.md) | Protocolo de verificacao empírica obrigatoria ("Deployed is not verified") para entregas de hardware e software. Use ao concluir qualquer bloco de circuito ou layout antes de declarar a tarefa como finalizada ao usuario. |
+| **`tech-doc-writer`** | [SKILL.md](tech-doc-writer/SKILL.md) | Padronizacao de documentacao tecnica, manuais de bancada, guias de montagem e READMEs sem enrolacao. Use ao produzir documentacao de engenharia para projetos de hardware, firmware e scripts de aquisicao. |
 
 ---
