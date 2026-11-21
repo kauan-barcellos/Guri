@@ -23,6 +23,21 @@ O **Guri** é a inteligência central e parceiro operacional para desenvolviment
 
 ---
 
+## 💻 Instalação Automática em Qualquer Máquina
+
+Para configurar o cérebro completo do Guri, catálogo de 85 subagentes, 78 skills modulares e atalhos globais de terminal em um novo computador:
+
+```powershell
+irm https://raw.githubusercontent.com/kauan-barcellos/Guri/main/instalar_guri.ps1 | iex
+```
+
+Ou, caso tenha clonado o repositório localmente:
+```powershell
+.\instalar_guri.ps1
+```
+
+---
+
 ## 🏛️ Arquitetura do Sistema
 
 ```text
