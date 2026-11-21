@@ -46,8 +46,9 @@ function guri {
 
             if ($commitsAtras -and [int]$commitsAtras -gt 0) {
                 Write-Host "`n[*] Kauan, foram encontradas $commitsAtras atualizacao(oes) no GitHub:" -ForegroundColor Yellow
-                git -C "$configPath" log --oneline -n [math]::Min([int]$commitsAtras, 5) HEAD..origin/main | ForEach-Object {
-                    Write-Host "    -> $_" -ForegroundColor Cyan
+                $logs = git -C "$configPath" log --oneline -n [math]::Min([int]$commitsAtras, 5) HEAD..origin/main
+                foreach ($l in $logs) {
+                    Write-Host "    -> $l" -ForegroundColor Cyan
                 }
                 git -C "$configPath" pull --quiet origin main 2>$null
                 Write-Host "[+] Cerebro do Guri sincronizado com sucesso!`n" -ForegroundColor Green
@@ -134,7 +135,8 @@ if ($null -eq $conteudoPerfil -or $conteudoPerfil -notmatch "function guri\s*\{"
     # Remove qualquer versao antiga do bloco
     $padrao = "(?s)# ===+\s*# GURI - Assistente.*?function guri-salvar\s*\{.*?\n\}"
     if ($conteudoPerfil -match $padrao) {
-        $conteudoPerfil = $conteudoPerfil -replace $padrao, $blocoGuri.Trim()
+        $escapedBloco = $blocoGuri.Trim().Replace('$', '$$')
+        $conteudoPerfil = $conteudoPerfil -replace $padrao, $escapedBloco
         Set-Content -Path $PROFILE -Value $conteudoPerfil -Force
     } else {
         Add-Content -Path $PROFILE -Value $blocoGuri
