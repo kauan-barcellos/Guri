@@ -23,21 +23,6 @@ O **Guri** é a inteligência central e parceiro operacional para desenvolviment
 
 ---
 
-## 💻 Instalação Automática em Qualquer Máquina
-
-Para configurar o cérebro completo do Guri, catálogo de 85 subagentes, 78 skills modulares e atalhos globais de terminal em um novo computador:
-
-```powershell
-irm https://raw.githubusercontent.com/kauan-barcellos/Guri/main/instalar_guri.ps1 | iex
-```
-
-Ou, caso tenha clonado o repositório localmente:
-```powershell
-.\instalar_guri.ps1
-```
-
----
-
 ## 🏛️ Arquitetura do Sistema
 
 ```text
@@ -98,3 +83,30 @@ Construída em Python nativo sem dependências externas, economiza de 40% a 100%
 * `opt.bat --log <arquivo.log>`: Filtra saídas de erro e testes.
 * `opt.bat --cache-get <namespace> <chave>`: Consulta regras em cache com 100% de economia.
 * `sync.bat [mensagem]`: Commita e sincroniza automaticamente com o repositório remoto.
+
+---
+
+## 💻 Instalação Automática em Qualquer Máquina
+
+Para implantar o Guri em um novo computador com Windows, configurando todo o cérebro central, os 85 subagentes, 78 skills modulares e os atalhos de terminal:
+
+### Instalação Direta via Web (PowerShell)
+Abra o PowerShell na máquina nova e execute o comando abaixo (sem necessidade de clonar manualmente):
+
+```powershell
+irm https://raw.githubusercontent.com/kauan-barcellos/Guri/main/instalar_guri.ps1 | iex
+```
+
+### Instalação Local (Repositório já clonado)
+Caso já tenha clonado este repositório, basta executar na raiz do projeto:
+
+```powershell
+.\instalar_guri.ps1
+```
+
+### O que o instalador automatiza:
+1. **Validação de ambiente:** Checa instalações ativas de Git e Python (sugerindo comandos via `winget` se faltar algo).
+2. **Cérebro central:** Conecta `$HOME\.gemini\config` ao repositório remoto, sincronizando todo o catálogo em segundo plano.
+3. **Identidade local:** Mantém o nome único do dispositivo em `config.json` e protege o arquivo contra conflitos em sincronizações futuras.
+4. **Comandos globais:** Instala os wrappers `guri` e `opt` no PATH e injeta as funções de terminal no `$PROFILE`.
+5. **Verificação imediata:** Executa o banner do Guri e valida os componentes.
