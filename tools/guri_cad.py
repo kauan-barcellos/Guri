@@ -9,54 +9,55 @@ import sys
 import os
 import json
 import time
-import socket
 import argparse
 import subprocess
+import xmlrpc.client
 
-DEFAULT_HOST = "127.0.0.1"
-DEFAULT_PORT = 4242
+DEFAULT_RPC_URL = "http://127.0.0.1:9875"
 FREECAD_CMD_PATH = r"C:\Program Files\FreeCAD 1.1\bin\FreeCADCmd.exe"
 
 
 class GuriCadClient:
-    def __init__(self, host=DEFAULT_HOST, port=DEFAULT_PORT):
-        self.host = host
-        self.port = port
+    def __init__(self, rpc_url: str = DEFAULT_RPC_URL):
+        self.rpc_url = rpc_url
+        self.server = xmlrpc.client.ServerProxy(self.rpc_url)
 
     def is_connected(self) -> bool:
-        """Verifica se o FreeCAD com o GuriBridge esta aberto e respondendo."""
+        """Verifica se o servidor RPC do FreeCAD MCP esta ativo."""
         try:
-            with socket.create_connection((self.host, self.port), timeout=1.0) as s:
-                s.sendall(json.dumps({"action": "ping"}).encode("utf-8") + b"\n")
-                raw = s.recv(4096)
-                data = json.loads(raw.decode("utf-8"))
-                return data.get("status") == "ok"
+            self.server.list_documents()
+            return True
         except Exception:
             return False
 
     def send_command(self, code: str, description: str = "", fit_view: bool = True) -> dict:
-        """Envia um bloco de codigo para o FreeCAD GUI executar imediatamente."""
-        with socket.create_connection((self.host, self.port), timeout=10.0) as s:
-            payload = {
-                "action": "exec",
-                "code": code,
-                "description": description,
-                "fit_view": fit_view,
-            }
-            s.sendall(json.dumps(payload, ensure_ascii=False).encode("utf-8") + b"\n")
-            raw = s.recv(8192)
-            return json.loads(raw.decode("utf-8"))
+        """Envia codigo Python diretamente para a thread de interface do FreeCAD."""
+        full_code = code
+        if fit_view:
+            full_code += """
+try:
+    import FreeCADGui
+    if FreeCADGui.activeDocument() and FreeCADGui.activeDocument().activeView():
+        FreeCADGui.activeDocument().activeView().fitAll()
+except Exception:
+    pass
+"""
+        try:
+            res = self.server.execute_code(full_code)
+            return res
+        except Exception as e:
+            return {"success": False, "error": str(e)}
 
     def run_steps(self, steps: list, default_delay: float = 1.5, doc_name: str = "Projeto"):
         """
         Executa uma sequencia de passos no FreeCAD.
-        Se a GUI estiver aberta, envia passo a passo com pausa para visualizacao ao vivo.
+        Se a GUI estiver aberta, envia passo a passo via RPC com pausa visual.
         Se a GUI estiver fechada, executa em lote via FreeCADCmd.
         """
         connected = self.is_connected()
 
         if connected:
-            print(f"[GuriCAD] Conectado ao FreeCAD GUI em {self.host}:{self.port}!")
+            print(f"[GuriCAD] Conectado ao FreeCAD MCP em {self.rpc_url}!")
             print(f"[GuriCAD] Iniciando construcao ao vivo de '{doc_name}' com {len(steps)} etapas...\n")
 
             total = len(steps)
@@ -69,10 +70,8 @@ class GuriCadClient:
                 print(f"[{idx}/{total}] -> {desc} (peca: '{name}')")
                 res = self.send_command(code, description=f"[{idx}/{total}] {desc}")
 
-                if res.get("status") != "ok":
-                    print(f"[ERRO] Falha na etapa '{name}': {res.get('message')}")
-                    if "traceback" in res:
-                        print(res["traceback"])
+                if not res.get("success", False):
+                    print(f"[ERRO] Falha na etapa '{name}': {res.get('error') or res.get('message')}")
                     return False
 
                 if idx < total and delay > 0:
@@ -118,10 +117,10 @@ def main():
     client = GuriCadClient()
     if args.command in ["status", "ping"]:
         if client.is_connected():
-            print(f"[OK] FreeCAD conectado e pronto para modelagem ao vivo na porta {DEFAULT_PORT}.")
+            print(f"[OK] FreeCAD conectado e pronto para modelagem ao vivo em {DEFAULT_RPC_URL}.")
             sys.exit(0)
         else:
-            print(f"[INFO] FreeCAD nao esta aberto ou ponte nao conectada em {DEFAULT_HOST}:{DEFAULT_PORT}.")
+            print(f"[INFO] FreeCAD nao esta aberto ou servidor RPC nao esta respondendo em {DEFAULT_RPC_URL}.")
             sys.exit(1)
 
 
