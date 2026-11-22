@@ -48,7 +48,7 @@ except Exception:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def run_steps(self, steps: list, default_delay: float = 1.5, doc_name: str = "Projeto"):
+    def run_steps(self, steps: list, default_delay: float = 2.5, doc_name: str = "Projeto"):
         """
         Executa uma sequencia de passos no FreeCAD.
         Se a GUI estiver aberta, envia passo a passo via RPC com pausa visual.

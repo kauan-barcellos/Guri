@@ -19,7 +19,7 @@ Write-Host "             >> A mente que pensa <<                   " -Foreground
 Write-Host "=======================================================`n" -ForegroundColor Cyan
 
 # 1. Checagem de Dependencias Essenciais
-Write-Host "[1/5] Verificando dependencias essenciais..." -ForegroundColor Yellow
+Write-Host "[1/6] Verificando dependencias essenciais..." -ForegroundColor Yellow
 
 # Git
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
@@ -49,7 +49,7 @@ if (-not $agyCmd -and -not (Test-Path "$agyBinPath\agy.exe")) {
 
 # 2. Configuracao do Cerebro (~/.gemini/config)
 $configPath = "$HOME\.gemini\config"
-Write-Host "`n[2/5] Configurando repositorio do cérebro em $configPath..." -ForegroundColor Yellow
+Write-Host "`n[2/6] Configurando repositorio do cérebro em $configPath..." -ForegroundColor Yellow
 
 if (-not (Test-Path $configPath)) {
     New-Item -ItemType Directory -Path $configPath -Force | Out-Null
@@ -102,7 +102,7 @@ if (Test-Path "$configPath\config.json") {
 }
 
 # 3. Instalacao dos Executaveis Globais (guri.cmd e opt.cmd)
-Write-Host "`n[3/5] Criando executaveis globais (guri e opt)..." -ForegroundColor Yellow
+Write-Host "`n[3/6] Criando executaveis globais (guri e opt)..." -ForegroundColor Yellow
 
 $targetBinDir = $null
 if (Test-Path $agyBinPath) {
@@ -146,7 +146,7 @@ Set-Content -Path "$targetBinDir\opt.cmd" -Value $optBatContent -Encoding ASCII
 Write-Host "  [+] Executaveis instalados em: $targetBinDir" -ForegroundColor Green
 
 # 4. Configuracao do Perfil do PowerShell
-Write-Host "`n[4/5] Configurando integracao com o PowerShell ($PROFILE)..." -ForegroundColor Yellow
+Write-Host "`n[4/6] Configurando integracao com o PowerShell ($PROFILE)..." -ForegroundColor Yellow
 
 $profileDir = Split-Path -Parent $PROFILE
 if (-not (Test-Path $profileDir)) {
@@ -276,8 +276,105 @@ if ($null -eq $conteudoPerfil -or $conteudoPerfil -notmatch "function guri\s*\{"
     Write-Host "  [+] Funcoes atualizadas no perfil existente!" -ForegroundColor Green
 }
 
-# 5. Validacao da Instalacao
-Write-Host "`n[5/5] Validando inicializacao..." -ForegroundColor Yellow
+# 5. Configuracao do FreeCAD e Servidor MCP (Bancada 3D)
+Write-Host "`n[5/6] Configurando FreeCAD e servidor MCP (modelagem passo a passo)..." -ForegroundColor Yellow
+
+$freecadBin = "C:\Program Files\FreeCAD 1.1\bin"
+if (-not (Test-Path "$freecadBin\FreeCAD.exe")) {
+    $fcFound = Get-ChildItem "C:\Program Files" -Filter "FreeCAD*" -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($fcFound) { $freecadBin = "$($fcFound.FullName)\bin" }
+}
+
+if (Test-Path "$freecadBin\FreeCAD.exe") {
+    Write-Host "  [+] FreeCAD detectado em: $freecadBin" -ForegroundColor Green
+
+    # 1. PATH do usuario
+    $uPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    if ($uPath -split ';' -notcontains $freecadBin) {
+        [Environment]::SetEnvironmentVariable("Path", "$uPath;$freecadBin", "User")
+        $env:PATH += ";$freecadBin"
+        Write-Host "  [+] FreeCAD adicionado ao PATH do usuario." -ForegroundColor Green
+    }
+
+    # 2. Executaveis freecad e freecadcmd no targetBinDir
+    if ($targetBinDir) {
+        Set-Content -Path "$targetBinDir\freecad.cmd" -Value "@start `"`" `"$freecadBin\FreeCAD.exe`" %*" -Encoding ASCII
+        Set-Content -Path "$targetBinDir\freecadcmd.cmd" -Value "@`"$freecadBin\FreeCADCmd.exe`" %*" -Encoding ASCII
+        Write-Host "  [+] Executaveis 'freecad' e 'freecadcmd' configurados em $targetBinDir" -ForegroundColor Green
+    }
+
+    # 3. Addon FreeCADMCP no Mod do FreeCAD
+    $fcAppData = "$env:APPDATA\FreeCAD\v1-1"
+    $fcMod = "$fcAppData\Mod\FreeCADMCP"
+    if (-not (Test-Path $fcMod)) {
+        New-Item -ItemType Directory -Path "$fcAppData\Mod" -Force | Out-Null
+        $bundledAddon = Join-Path $PSScriptRoot "assets\FreeCADMCP"
+        if (-not (Test-Path $bundledAddon)) {
+            $bundledAddon = "$configPath\assets\FreeCADMCP"
+        }
+        if (Test-Path $bundledAddon) {
+            Copy-Item -Recurse -Force $bundledAddon $fcMod
+            Write-Host "  [+] Addon FreeCADMCP instalado a partir do repositorio!" -ForegroundColor Green
+        } else {
+            try {
+                git clone --depth 1 https://github.com/neka-nat/freecad-mcp.git "$env:TEMP\fc-mcp-tmp" --quiet
+                Copy-Item -Recurse -Force "$env:TEMP\fc-mcp-tmp\addon\FreeCADMCP" $fcMod
+                Remove-Item -Recurse -Force "$env:TEMP\fc-mcp-tmp" -ErrorAction SilentlyContinue
+                Write-Host "  [+] Addon FreeCADMCP clonado e instalado com sucesso!" -ForegroundColor Green
+            } catch {
+                Write-Host "  [!] Nao foi possivel clonar FreeCADMCP agora." -ForegroundColor Yellow
+            }
+        }
+    } else {
+        Write-Host "  [+] Addon FreeCADMCP ja instalado em Mod." -ForegroundColor Green
+    }
+
+    # 4. Habilitar auto_start_rpc em freecad_mcp_settings.json
+    $mcpSettingsFile = "$fcAppData\freecad_mcp_settings.json"
+    $settingsObj = @{
+        remote_enabled = $false
+        allowed_ips = "127.0.0.1"
+        auto_start_rpc = $true
+        auth_token = ""
+    }
+    $settingsObj | ConvertTo-Json -Depth 5 | Set-Content -Path $mcpSettingsFile -Encoding UTF8
+    Write-Host "  [+] Auto-start do servidor RPC (porta 9875) configurado!" -ForegroundColor Green
+
+    # 5. Ajustar mcp_config.json com caminho dinamico do uvx
+    $uvxCmd = (Get-Command uvx -ErrorAction SilentlyContinue).Source
+    if (-not $uvxCmd) {
+        if (Test-Path "$HOME\AppData\Local\hermes\bin\uvx.exe") {
+            $uvxCmd = "$HOME\AppData\Local\hermes\bin\uvx.exe"
+        } else {
+            $uvxCmd = "uvx"
+        }
+    }
+
+    $mcpConfigTarget = "$configPath\mcp_config.json"
+    if (Test-Path $mcpConfigTarget) {
+        try {
+            $mcpJson = Get-Content $mcpConfigTarget -Raw | ConvertFrom-Json
+            if (-not $mcpJson.mcpServers) { $mcpJson | Add-Member -MemberType NoteProperty -Name "mcpServers" -Value ([PSCustomObject]@{}) }
+            $mcpJson.mcpServers | Add-Member -MemberType NoteProperty -Name "freecad" -Value ([PSCustomObject]@{
+                command = $uvxCmd
+                args = @("freecad-mcp", "--freecadcmd", "$freecadBin\freecadcmd.exe")
+            }) -Force
+            $mcpJson | ConvertTo-Json -Depth 10 | Set-Content $mcpConfigTarget -Encoding UTF8
+
+            if ($configPath -ne "$HOME\.gemini\config" -and (Test-Path "$HOME\.gemini\config")) {
+                Copy-Item -Force $mcpConfigTarget "$HOME\.gemini\config\mcp_config.json"
+            }
+            Write-Host "  [+] Servidor freecad registrado em mcp_config.json com uvx dinamico." -ForegroundColor Green
+        } catch {
+            Write-Host "  [!] Erro ao ajustar mcp_config.json: $_" -ForegroundColor Yellow
+        }
+    }
+} else {
+    Write-Host "  [!] FreeCAD nao encontrado em Program Files. Instale quando desejar." -ForegroundColor Gray
+}
+
+# 6. Validacao da Instalacao
+Write-Host "`n[6/6] Validando inicializacao..." -ForegroundColor Yellow
 
 $bannerScript = "$configPath\skills\guri-core\scripts\banner.py"
 if (Test-Path $bannerScript) {

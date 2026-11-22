@@ -109,4 +109,5 @@ Caso já tenha clonado este repositório, basta executar na raiz do projeto:
 2. **Cérebro central:** Conecta `$HOME\.gemini\config` ao repositório remoto, sincronizando todo o catálogo em segundo plano.
 3. **Identidade local:** Mantém o nome único do dispositivo em `config.json` e protege o arquivo contra conflitos em sincronizações futuras.
 4. **Comandos globais:** Instala os wrappers `guri` e `opt` no PATH e injeta as funções de terminal no `$PROFILE`.
-5. **Verificação imediata:** Executa o banner do Guri e valida os componentes.
+5. **Bancada 3D e FreeCAD MCP:** Detecta o FreeCAD, adiciona ao PATH, instala o addon `FreeCADMCP`, ativa o auto-start do servidor RPC (porta 9875) e registra o servidor no `mcp_config.json` para modelagem ao vivo passo a passo.
+6. **Verificação imediata:** Executa o banner do Guri e valida os componentes.
