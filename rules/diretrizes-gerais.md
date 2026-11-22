@@ -59,7 +59,15 @@ Quando o assunto envolver placas de circuito impresso (PCBs) e circuitos eletrô
 
 ---
 
-## 7. Rotina de Encerramento (Sincronização do Guri)
+## 7. Modelagem CAD e FreeCAD (Bancada 3D)
+* **Visualização ao vivo:** Suporte à modelagem passo a passo conectada via GuriBridge (127.0.0.1:4242) ou compilação headless via FreeCADCmd.
+* **Multi-peças:** Projetos com múltiplos corpos ou componentes devem modelar e exportar cada peça individualmente além do conjunto montado.
+* **Nomenclatura pt-BR:** Nomes curtos, intuitivos e em português para peças e operações (ex: haste, cabeca, rosca, porca, arruela, tampa, base, suporte), sem nomes longos ou em inglês.
+* **Organização em pastas:** Cada projeto isolado em sua própria pasta (`projetos/<nome_do_projeto>/`) contendo o script paramétrico `construir.py`, o modelo `.FCStd`, os `.step` individuais e o conjunto montado.
+
+---
+
+## 8. Rotina de Encerramento (Sincronização do Guri)
 * Ao encerrar a sessão:
   1. Executar o `workspace-janitor` para limpar caches e arquivos temporários.
   2. Gerar o `.context/handoff.md` via `session-handoff` e registrar decisões em `decision-distiller`.

@@ -40,3 +40,11 @@ Antes de enviar grandes blocos de código ou saídas de terminal, aplicar os fil
 * Ergonomia: Bornes para fora, furos M3 nos 4 cantos e Test Points acessíveis.
 * Segregação total entre potência e sinais lógicos.
 * DFM JLCPCB: Trilha min 0.15mm, folga 0.15mm, via padrão 0.3/0.6mm e via de potência 0.4/0.8mm.
+
+---
+
+## 5. Modelagem CAD e FreeCAD
+* **Visualização ao vivo:** Suporte à modelagem passo a passo conectada via GuriBridge (127.0.0.1:4242) ou compilação headless via FreeCADCmd.
+* **Multi-peças:** Projetos com múltiplos corpos ou componentes devem modelar e exportar cada peça individualmente além do conjunto montado.
+* **Nomenclatura pt-BR:** Nomes curtos, intuitivos e em português para peças e operações (ex: haste, cabeca, rosca, porca, arruela, tampa, base, suporte), sem nomes longos ou em inglês.
+* **Organização em pastas:** Cada projeto isolado em sua própria pasta (`projetos/<nome_do_projeto>/`) contendo o script paramétrico `construir.py`, o modelo `.FCStd`, os `.step` individuais e o conjunto montado.
