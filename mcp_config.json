@@ -7,13 +7,13 @@
       ],
       "env": {
         "PYTHON_PATH": "C:\\AI_Tools\\KiCAD-MCP-Server\\venv\\Scripts\\python.exe",
-        "PYTHONPATH": "C:\\Users\\kauam.barcellos\\AppData\\Local\\Programs\\KiCad\\10.0\\bin\\Lib\\site-packages",
-        "KICAD_CLI_PATH": "C:\\Users\\kauam.barcellos\\AppData\\Local\\Programs\\KiCad\\10.0\\bin\\kicad-cli.exe",
+        "PYTHONPATH": "C:\\Users\\kauan\\AppData\\Local\\Programs\\KiCad\\10.0\\bin\\Lib\\site-packages",
+        "KICAD_CLI_PATH": "C:\\Users\\kauan\\AppData\\Local\\Programs\\KiCad\\10.0\\bin\\kicad-cli.exe",
         "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jre-25.0.5.8-hotspot"
       }
     },
     "freecad": {
-      "command": "C:\\Users\\kauam.barcellos\\AppData\\Roaming\\Python\\Python314\\Scripts\\uvx.exe",
+      "command": "C:\\Users\\kauan\\AppData\\Local\\hermes\\bin\\uvx.exe",
       "args": [
         "freecad-mcp",
         "--freecadcmd",
