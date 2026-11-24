@@ -61,9 +61,17 @@ Quando o assunto envolver placas de circuito impresso (PCBs) e circuitos eletrô
 
 ## 7. Modelagem CAD e FreeCAD (Bancada 3D)
 * **Modelagem Passo a Passo Obrigatória:** Sempre construir a geometria passo a passo no FreeCAD conectado via MCP (porta 9875), aplicando um intervalo visual levemente pausado de 2.2s a 2.5s entre etapas para o usuário acompanhar a evolução da peça na tela e poder rotacionar a vista.
-* **Multi-peças:** Projetos com múltiplos corpos ou componentes devem modelar e exportar cada peça individualmente além do conjunto montado (arquivos `.step` individuais e `conjunto.step`).
+* **Multi-peças:** Projetos com múltiplos corpos ou componentes devem modelar cada peça individualmente além do conjunto montado em arquivos nativos `.FCStd`.
 * **Nomenclatura pt-BR:** Nomes curtos, intuitivos e em português para peças e operações (ex: haste, cabeca, rosca, porca, arruela, tampa, base, suporte, colar, eixo), sem termos longos ou em inglês.
-* **Organização em pastas:** Cada projeto isolado em sua própria pasta (`projetos/<nome_do_projeto>/`) contendo o script paramétrico `construir.py`, o modelo `.FCStd`, os `.step` individuais e o conjunto montado.
+* **Foco em Arquivos Nativos (.FCStd):** Manter o foco estrito nos arquivos `.FCStd` e pranchas TechDraw integradas, sem poluir a pasta de trabalho com exportações intermediárias (STEP, STL, SVG, PDF) a menos que explicitamente solicitado.
+* **Roscas 3D e TechDraw:**
+  - Em montagens com roscas helicoidais 3D (`Thread = True` do Fasteners), agrupar sólidos com `Part.makeCompound(...)` e NUNCA aplicar operações booleanas `fuse()`, pois fusões entre superfícies helicoidais travam a CPU.
+  - Para gerar vistas no TechDraw a partir de modelos com roscas 3D, ativar obrigatoriamente `CoarseView = True` e `SmoothVisible = False` nas vistas `DrawViewPart` para evitar gargalo de cálculo de linhas ocultas (HLR) do OpenCASCADE.
+* **Tamanho de Malha STL:**
+  - Superfícies helicoidais contínuas exigem milhões de triângulos planos ao serem exportadas para STL (~330 MB para montagens completas). Para visualização externa e compartilhamento, o padrão da indústria é o formato **STEP (.step)** ou o `.FCStd` nativo, reservando o STL para manufatura aditiva (impressão 3D).
+* **Ergonomia e Montagem Mecânica:**
+  - Na face inferior de placas de apoio, a arruela fica encostada na barra e a porca fica abaixo dela (nunca a arruela abaixo da porca).
+  - Em células de carga com botão esférico convexo autocentrante (ex: Berman LBQ-20T), o fuso deve atuar diretamente sobre o botão, eliminando arruelas soltas que causam desalinhamento sob impacto/torque.
 * **Auto-start e Resiliência:** Servidor RPC FreeCAD MCP configurado com `auto_start_rpc: true` em `freecad_mcp_settings.json`, com fallback automático para execução headless via FreeCADCmd caso a GUI esteja fechada.
 
 ---
