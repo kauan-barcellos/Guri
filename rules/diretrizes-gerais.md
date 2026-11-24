@@ -72,6 +72,13 @@ Quando o assunto envolver placas de circuito impresso (PCBs) e circuitos eletrô
 * **Ergonomia e Montagem Mecânica:**
   - Na face inferior de placas de apoio, a arruela fica encostada na barra e a porca fica abaixo dela (nunca a arruela abaixo da porca).
   - Em células de carga com botão esférico convexo autocentrante (ex: Berman LBQ-20T), o fuso deve atuar diretamente sobre o botão, eliminando arruelas soltas que causam desalinhamento sob impacto/torque.
+* **Priorização de Componentes Comerciais (COTS) e Usinagem Mínima:**
+  - Sempre priorizar fixadores, barras roscadas, porcas, arruelas e fusos comerciais padronizados de prateleira (ex: barras DIN 975 M24x300 cortadas de fábrica, DIN 934, ISO 7089, DIN 933), eliminando corte ou torneamento em itens normalizados.
+  - Restringir a usinagem personalizada estritamente ao indispensável nas chapas brutas (furações de passagem Ø26 mm, roscas em travessas e rebaixos rasos de centragem).
+* **Geometria de Botões de Carga:**
+  - Em células de compressão com botão acoplado (ex: Berman LBQ-20T), a geometria padrão possui pescoço cilíndrico liso de apoio na base (embaixo) e faces chatas para encaixe de chave usinadas na cabeça (em cima), abaixo da calota esférica convexa (SR).
+* **Organização de Revisões de Projeto:**
+  - Ao consolidar marcos de engenharia de bancada, organizar as entregas em pastas de revisão (`rev0/` para histórico preliminar legado, `rev1/` para versão atualizada oficial com COTS), mantendo a raiz limpa e documentando as alterações em `README_ARQUIVOS.md`.
 * **Auto-start e Resiliência:** Servidor RPC FreeCAD MCP configurado com `auto_start_rpc: true` em `freecad_mcp_settings.json`, com fallback automático para execução headless via FreeCADCmd caso a GUI esteja fechada.
 
 ---
